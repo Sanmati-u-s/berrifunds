@@ -1,4 +1,6 @@
 import { useState } from "react";
+import logo from "./assets/logo.svg";
+import "./App.css";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -71,14 +73,14 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "40px", maxWidth: "400px" }}>
-      <h1>BerriFunds</h1>
+    <div  className="form" style={{ padding: "40px", maxWidth: "400px" }}>
+      <header className="app-header">
+        <img src={logo} alt="BerriFunds logo" className="logo" />
+        <h1>BerriFunds</h1>
+      </header>
 
-      <button onClick={() => setIsLogin(!isLogin)}>
-        Switch to {isLogin ? "Signup" : "Login"}
-      </button>
-
-      <form onSubmit={isLogin ? handleLogin : handleSignup}>
+      
+      <form className="form" onSubmit={isLogin ? handleLogin : handleSignup}> 
         {!isLogin && (
           <>
             <input
@@ -111,6 +113,11 @@ function App() {
         <button type="submit">
           {isLogin ? "Login" : "Signup"}
         </button>
+
+        <button onClick={() => setIsLogin(!isLogin)}>
+        Go to {isLogin ? "Signup" : "Login"}
+      </button>
+
       </form>
 
       <p>{message}</p>
@@ -118,7 +125,7 @@ function App() {
       {token && (
         <>
           <hr />
-          <button onClick={accessProtectedRoute}>
+          <button class="access" onClick={accessProtectedRoute}>
             Access Protected Route 🔒
           </button>
         </>

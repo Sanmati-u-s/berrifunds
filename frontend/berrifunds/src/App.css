@@ -5,38 +5,72 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+body{
+  background-color: #CF455C;
+  font-family: 'comic sans ms', sans-serif;
+
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  background-color: #F5AFAF;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.app-header .logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: linear-gradient(180deg,#fbefef,#fcf8f8);
+  padding: 6px;
+  box-shadow: 0 6px 18px rgba(59,43,59,0.06);
 }
 
-.card {
-  padding: 2em;
+.app-header h1 {
+  font-family: 'comic sans ms', sans-serif;
+  margin: 0;
+  color: #971549;
+  font-size: 2.5rem;;
 }
 
-.read-the-docs {
-  color: #888;
+button{
+  margin: 0px 10px;
+}
+
+input{
+  width: 80%;
+  text-align: center;
+  height: 30px;
+  background-color: #FBEFEF;
+  border-radius: 8px;
+  border: none;
+  font-family: 'comic sans ms', sans-serif;
+}
+
+button{
+  background-color: #971549;
+  color:white;
+}
+
+
+.form{
+  border-radius: 20%;
+  padding: 20px;
+  background-color: #F5AFAF;
+}
+
+.access{
+  background-color: #f5cccc;
+  color: rgb(53, 12, 25);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 10px;
 }
