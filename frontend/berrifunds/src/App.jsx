@@ -1,5 +1,6 @@
 import { useState } from "react";
 import logo from "./assets/logo.svg";
+import Dashboard from "./components/Dashboard.jsx";
 import "./App.css";
 
 function App() {
@@ -53,11 +54,15 @@ function App() {
       return;
     }
 
-    // 🔐 STORE JWT
-    localStorage.setItem("token", data.token);
-    setToken(data.token);
-
+    // Show success message on the login form, then navigate to dashboard after brief delay
     setMessage("Login successful 🔐");
+
+    setTimeout(() => {
+      localStorage.setItem("token", data.token);
+      setToken(data.token);
+      // clear message so it doesn't appear on the dashboard
+      setMessage("");
+    }, 1200);
   };
 
   // PROTECTED API CALL
@@ -68,7 +73,11 @@ function App() {
       },
     });
 
+    const data = await res.json();
+    alert(JSON.stringify(data, null, 2));
+  };
 
+  // LOGOUT
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);
@@ -76,78 +85,73 @@ function App() {
     setIsLogin(true);
   };
 
-    const data = await res.json();
-    alert(JSON.stringify(data, null, 2));
-  };
-
   return (
-    <div  className="form" style={{ padding: "40px", maxWidth: "400px" }}>
-      <header className="app-header">
-        <img src={logo} alt="BerriFunds logo" className="logo" />
-        <h1>BerriFunds</h1>
-      </header>
-
+    <>
+      {!token ? (
+        <div
+          className="form"
       
-    {token && (
-      <button onClick={handleLogout}>
-        Logout
-      </button>
-    )}
+        >
+          <header className="app-header" style={{ textAlign: "center" }}>
+            <img src={logo} alt="BerriFunds logo" className="logo" />
+            <h1>BerriFunds</h1>
+          </header>
 
-      
-      <form className="form" onSubmit={isLogin ? handleLogin : handleSignup}> 
-        {!isLogin && (
-          <>
+          <form onSubmit={isLogin ? handleLogin : handleSignup}>
+            {!isLogin && (
+              <>
+                <input
+                  name="name"
+                  placeholder="Name"
+                  onChange={handleChange}
+                  required
+                />
+                <br />
+                <br />
+              </>
+            )}
+
             <input
-              name="name"
-              placeholder="Name"
+              name="email"
+              placeholder="Email"
               onChange={handleChange}
               required
             />
-            <br /><br />
-          </>
-        )}
+            <br />
+            <br />
 
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              onChange={handleChange}
+              required
+            />
+            <br />
+            <br />
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+            <button type="submit">{isLogin ? "Login" : "Signup"}</button>
 
-        <button type="submit">
-          {isLogin ? "Login" : "Signup"}
-        </button>
+            <br />
+            <br />
 
-        <button onClick={() => setIsLogin(!isLogin)}>
-        Go to {isLogin ? "Signup" : "Login"}
-      </button>
+            {!isLogin && (
+              <p style={{ color: "#FFF8E3" }}>Already have an account?</p>
+            )}
+            <button type="button" onClick={() => setIsLogin(!isLogin)}>
+              Go to {isLogin ? "Signup" : "Login"}
+            </button>
+          </form>
 
-      </form>
+          <p>{message}</p>
+        </div>
+      ) : (
+        <div className="dashboard-page">
+  <Dashboard onLogout={handleLogout} />
+</div>
 
-      <p>{message}</p>
-
-      {token && (
-        <>
-          <hr />
-          <button class="access" onClick={accessProtectedRoute}>
-            Access Protected Route 🔒
-          </button>
-        </>
       )}
-    </div>
-
-    
+    </>
   );
 }
 
