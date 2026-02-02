@@ -68,6 +68,14 @@ function App() {
       },
     });
 
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    setMessage("Logged out successfully 👋");
+    setIsLogin(true);
+  };
+
     const data = await res.json();
     alert(JSON.stringify(data, null, 2));
   };
@@ -78,6 +86,13 @@ function App() {
         <img src={logo} alt="BerriFunds logo" className="logo" />
         <h1>BerriFunds</h1>
       </header>
+
+      
+    {token && (
+      <button onClick={handleLogout}>
+        Logout
+      </button>
+    )}
 
       
       <form className="form" onSubmit={isLogin ? handleLogin : handleSignup}> 
@@ -131,6 +146,8 @@ function App() {
         </>
       )}
     </div>
+
+    
   );
 }
 
